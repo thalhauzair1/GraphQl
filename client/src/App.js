@@ -19,8 +19,9 @@ const App = () => {
       <div className="App">
         <Title />
         <AddPeople />
-        <Peoples/>
         <AddCar/>
+        <Peoples/>
+        
       </div>
     </ApolloProvider>
   );

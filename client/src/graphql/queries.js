@@ -39,7 +39,7 @@ mutation UpdatePeople($id: String!, $firstName: String!, $lastName: String!) {
 }`
 
 export const ADD_CAR = gql`
-mutation AddCar($id: String!, $year: Int!, $make: String!, $model: String!, $price: Float!, $personId: String) {
+mutation AddCar($id: String!, $year: Int!, $make: String!, $model: String!, $price: Float!, $personId: String!) {
   addCar(id: $id, year: $year, make: $make, model: $model, price: $price, personId: $personId) {
     id
     year
@@ -53,7 +53,7 @@ mutation AddCar($id: String!, $year: Int!, $make: String!, $model: String!, $pri
 
 export const GET_CAR = gql`
 {
-cars{
+car{
     id
     make
     model

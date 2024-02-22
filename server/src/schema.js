@@ -178,8 +178,8 @@ const resolvers = {
         year: args.year,
         make: args.make,
         model: args.model,
-        price: args.price,
-s      }
+        price: args.price,   
+        personId: args.personId}
       carArray.push(newCar)
 
       return newCar

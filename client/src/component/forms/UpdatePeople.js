@@ -46,21 +46,8 @@ const UpdatePeople = props => {
       <Form.Item name='lastName' rules={[{ required: true, message: 'Please enter a last name' }]}>
         <Input placeholder='i.e. Smith' />
       </Form.Item>
-      <Form.Item shouldUpdate={true}>
-        {() => (
-          <Button
-            form={form}
-            type='primary'
-            htmlType='submit'
-            disabled={
-              (!form.isFieldTouched('firstName') && !form.isFieldTouched('lastName')) ||
-              form.getFieldsError().filter(({ errors }) => errors.length).length
-            }
-          >
-            Update People
-          </Button>
-        )}
-      </Form.Item>
+      <Button htmlType='submit'>Update</Button>
+    
       <Button onClick={props.onButtonClick}>Cancel</Button>
     </Form>
   )
