@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react'
 import { Button, Form, Input } from 'antd'
 import { useMutation } from '@apollo/client'
-import {  UPDATE_PEOPLE } from '../../graphql/queries'
+import {  GET_PEOPLES, UPDATE_PEOPLE } from '../../graphql/queries'
 
 const UpdatePeople = props => {
   const { id, firstName, lastName } = props
   const [form] = Form.useForm()
   const [, forceUpdate] = useState()
 
-  const [updatePeople] = useMutation(UPDATE_PEOPLE)
+  const [updatePeople] = useMutation(UPDATE_PEOPLE, {
+    refetchQueries: [{ query: GET_PEOPLES }]
+  });
 
   const onFinish = values => {
     const { firstName, lastName } = values
@@ -19,13 +21,21 @@ const UpdatePeople = props => {
         firstName,
         lastName
       }
+      
     })
+    
     props.onButtonClick()
+    
   }
+  
 
   useEffect(() => {
     forceUpdate()
   }, [])
+  
+
+
+
 
   return (
     <Form

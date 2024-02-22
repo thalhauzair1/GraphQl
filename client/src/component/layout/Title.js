@@ -1,5 +1,10 @@
 const Title = () =>{
     const styles = getStyles()
+    return(
+        <div style={styles.title}>
+            <h1>People and their Cars</h1>
+        </div>
+    )
 }
 
 const getStyles =() =>({

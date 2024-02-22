@@ -54,11 +54,15 @@ const AddPeople = () => {
   
 
 return (
+  <div>
+    <div>
+      <h1>Add People</h1>
+    </div>
     <Form
     name='add-people-form'
     layout='inline'
     size='large'
-    style={{ marginBottom: '40px' }}
+    style={{ margin: '40px', display: 'flex', justifyContent: 'center'}}
     form={form}
     onFinish={onFinish}
   >
@@ -85,7 +89,8 @@ return (
         </Button>
       )}
     </Form.Item>
-  </Form>)
+  </Form>
+  </div>)
 }
 
 export default AddPeople

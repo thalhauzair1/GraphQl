@@ -41,11 +41,15 @@ const AddCar = () => {
   };  
 
   return (
+    <div>
+    <div> 
+      <h1>Add Car</h1>
+    </div>
     <Form
       name='add-car-form'
       layout='inline'
       size='large'
-      style={{ marginBottom: '40px' }}
+      style={{ margin: '40px', display: 'flex', justifyContent: 'center'  }}
       form={form}
       onFinish={onFinish}
     >
@@ -105,6 +109,7 @@ const AddCar = () => {
         )}
       </Form.Item>
     </Form>
+    </div>
   );
 };
 
