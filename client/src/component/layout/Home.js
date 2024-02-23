@@ -5,9 +5,17 @@ import Title from './Title';
 
 const Home = () => {
 
+ const style={
+    border:"2px solid black",
+    width:"90vw",
+    margin: "20px auto",
+    
+
+  }
+
     return (
 
-      <div className="App">
+      <div className="App" style={style}>
         <Title />
         <AddPeople />
         <AddCar/>
