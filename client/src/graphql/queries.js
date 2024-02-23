@@ -79,7 +79,7 @@ query CarsOwnedByPeople($personId: String!){
 
 export const REMOVE_CAR = gql`
 mutation RemoveCar($id: String!) {
-  removeCarByPersonId(id: $id) {
+  removeCar(id: $id) {
     id
     make
     model

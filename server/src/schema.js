@@ -123,8 +123,7 @@ const typeDefs = `
     removePeople(id:String!): People
     addCar(id:String!, year:Int!, make:String!, model:String!, price:Float!,personId:String): Car
     updateCar(id:String!, year:Int!, make:String!, model:String!, price:Float!, personId:String): Car
-    removeCarByPersonId(id:String!) : Car
-
+    removeCar(id:String!): Car
   }
   `
 
@@ -161,16 +160,16 @@ const resolvers = {
       return people
 
     },
-    removePeople: (root, args) => {
-      const removePeople = find(peopleArray, { id: args.id })
-      if (!removePeople) {
-        throw new Error("no people")
+   removeCar: (root, args) => {
+      const removeCar= find(carArray, { id: args.id })
+      if (!removeCar) {
+        console.log(removeCar)
+        throw new Error("no car for person ")
       }
-      remove(peopleArray, c => {
-        return c.id === removePeople.id
+      remove(carArray, c => {
+        return c.id === removeCar.id
       })
-
-      return removePeople
+      return removeCar
     },
     addCar: (root, args) => {
       const newCar = {
@@ -199,16 +198,16 @@ const resolvers = {
       return updateCar
 
     },
-    removeCarByPersonId: (root, args) => {
-      const removeCarByPersonId = find(carArray, { id: args.id })
-      if (!removeCarByPersonId) {
-        console.log(removeCarByPersonId)
+    removeCar: (root, args) => {
+      const removeCar= find(carArray, { id: args.id })
+      if (!removeCar) {
+        console.log(removeCar)
         throw new Error("no car for person ")
       }
       remove(carArray, c => {
-        return c.id === removeCarByPersonId.id
+        return c.id === removeCar.id
       })
-      return removeCarByPersonId
+      return removeCar
     }
   }
 }
