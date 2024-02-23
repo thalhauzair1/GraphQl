@@ -114,7 +114,7 @@ const typeDefs = `
   type Query {
     people: [People]
     car: [Car]
-    carsOwnedByPeople(personId: ID!): [Car]
+    carsOwnedByPeople(personId: String!): [Car]
   }
 
   type Mutation {

@@ -65,7 +65,7 @@ car{
 `
 
 export const GET_CARS_BY_PEOPLE = gql`
-query CarsOwnedByPeople($personId: ID!){
+query CarsOwnedByPeople($personId: String!){
   carsOwnedByPeople(personId: $personId){
     id
     make
