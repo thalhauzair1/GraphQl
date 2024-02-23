@@ -1,9 +1,6 @@
 import { Card } from "antd"
 import { useState } from 'react'
 import { EditOutlined } from '@ant-design/icons'
-
-import { useQuery } from '@apollo/client'
-import { GET_CARS_BY_PEOPLE } from "../../graphql/queries"
 import UpdateCar from "../forms/UpdateCar"
 import RemoveCar from "../Buttons/RemoveCar"
 

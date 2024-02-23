@@ -72,18 +72,20 @@ query CarsOwnedByPeople($personId: ID!){
     model
     year
     price
+    personId
   }
 }
 `
 
 export const REMOVE_CAR = gql`
 mutation RemoveCar($id: String!) {
-  removeCarByPersonId(personId: $id) {
+  removeCarByPersonId(id: $id) {
     id
     make
     model
     year
     price
+    personId
   }
 }`
 

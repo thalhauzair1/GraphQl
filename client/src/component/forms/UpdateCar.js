@@ -1,13 +1,40 @@
-import { useMutation } from "@apollo/client";
-import { Button, Form, Input } from "antd";
+import { useMutation, useQuery } from "@apollo/client";
+import { Button, Form, Input, Select } from "antd";
 import { useEffect, useState } from "react";
-import { UPDATE_CAR } from "../../graphql/queries";
+import {  GET_CARS_BY_PEOPLE, GET_PEOPLES, UPDATE_CAR } from "../../graphql/queries";
+const { Option } = Select;
 
 const UpdateCar = (props) => {
-    const { id, year, make, model, price } = props;
-    const [updateCar] = useMutation(UPDATE_CAR);
+    const { id, year, make, model, price, personId } = props;
     const [form] = Form.useForm();
-    const [, forceUpdate] = useState();
+    const { data: peopleData } = useQuery(GET_PEOPLES);
+    const [selectedPersonId, setSelectedPersonId] = useState(personId);
+    const [updateCar] = useMutation(UPDATE_CAR, {
+        refetchQueries: [
+            { query: GET_CARS_BY_PEOPLE, variables: { personId: selectedPersonId } },
+            { query: GET_CARS_BY_PEOPLE, variables: { personId } }
+        ],
+        onCompleted: () => {
+            setSelectedPersonId(personId);
+        }
+    });
+    
+
+    useEffect(() => {
+        if (peopleData && peopleData.people) {
+            form.setFieldsValue({
+                year,
+                make,
+                model,
+                price,
+                personId: selectedPersonId 
+            });
+        }
+    }, [peopleData, selectedPersonId]); 
+
+    const handleChange = value => {
+        setSelectedPersonId(value);
+    };
 
     const onFinish = values => {
         const { year, make, model, price } = values;
@@ -18,28 +45,20 @@ const UpdateCar = (props) => {
                 year: parseInt(year),
                 make,
                 model,
-                price: parseFloat(price)
+                price: parseFloat(price),
+                personId: selectedPersonId
             }
-        })
+        });
 
-        props.onButtonClick()
+        props.onButtonClick();
     }
-
-    useEffect(() => {
-        forceUpdate()
-    }, [])
 
     return (
         <Form
+            form={form}
             name='update-car-form'
             layout='inline'
             onFinish={onFinish}
-            initialValues={{
-                year,
-                make,
-                model,
-                price
-            }}
         >
             <Form.Item
                 name='year'
@@ -65,11 +84,30 @@ const UpdateCar = (props) => {
             >
                 <Input placeholder='i.e. 25000' />
             </Form.Item>
-            <Button htmlType='submit'>Update</Button>
-            <Button onClick={props.onButtonClick}>Cancel</Button>
+            <Form.Item
+                name='personId'
+                rules={[{ required: true, message: 'Please select a person' }]}
+            >
+                <Select
+                    placeholder='Select a person'
+                    onChange={handleChange}
+                    allowClear
+                >
+                    {peopleData && peopleData.people && peopleData.people.map(person => (
+                        <Option key={person.id} value={person.id}>
+                            {person.firstName} {person.lastName}
+                        </Option>
+                    ))}
+                </Select>
+            </Form.Item>
+            <Form.Item>
+                <Button type="primary" htmlType="submit">
+                    Update
+                </Button>
+                <Button onClick={props.onButtonClick}>Cancel</Button>
+            </Form.Item>
         </Form>
     )
 }
-    
 
-    export default UpdateCar
+export default UpdateCar;

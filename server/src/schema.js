@@ -123,7 +123,7 @@ const typeDefs = `
     removePeople(id:String!): People
     addCar(id:String!, year:Int!, make:String!, model:String!, price:Float!,personId:String): Car
     updateCar(id:String!, year:Int!, make:String!, model:String!, price:Float!, personId:String): Car
-    removeCarByPersonId(personId:String!) : Car
+    removeCarByPersonId(id:String!) : Car
 
   }
   `
@@ -188,7 +188,7 @@ const resolvers = {
     updateCar: (root, args) => {
       const updateCar = find(carArray, { id: args.id })
       if (!updateCar) {
-        throw new Error("no  Car")
+        throw new Error("no Car")
       }
       updateCar.make = args.make
       updateCar.model = args.model
@@ -196,17 +196,17 @@ const resolvers = {
       updateCar.year = args.year
       updateCar.personId = args.personId
 
-      return car
+      return updateCar
 
     },
     removeCarByPersonId: (root, args) => {
-      const removeCarByPersonId = find(carArray, { personId: args.personId })
+      const removeCarByPersonId = find(carArray, { id: args.id })
       if (!removeCarByPersonId) {
         console.log(removeCarByPersonId)
         throw new Error("no car for person ")
       }
       remove(carArray, c => {
-        return c.personId === removeCarByPersonId.personId
+        return c.id === removeCarByPersonId.id
       })
       return removeCarByPersonId
     }

@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client"
 import { GET_PEOPLES } from "../../graphql/queries"
 import { Card, List } from "antd"
 import PeopleCard from "../listItems/PeopleCard"
+import { Link } from "react-router-dom"
 const Peoples = () => {
   const styles = getStyles()
 
@@ -18,8 +19,11 @@ const Peoples = () => {
       <List grid={{ gutter: 20, column: 1 }} style={styles.list}>
         {data.people.map(({ id, firstName, lastName }) => (
           <List.Item key={id}>
-            <Card title={`${firstName} ${lastName}`} style={{width:"80vw"}} >
+            <Card title={`${firstName} ${lastName}`} style={{width:"80vw"}}>
             <PeopleCard id={id} firstName={firstName} lastName={lastName} />
+
+            <Link to={`/people/${id}`}>View Details</Link>
+    
             </Card>
           </List.Item>
         ))}
